@@ -43,6 +43,16 @@ button{
  margin:10px;box-shadow:0 5px 15px #c77dbb66;
 }
 button:hover{transform:scale(1.04)}
+input[type="password"]{
+ width:min(100%,280px);
+ padding:15px;
+ border:2px solid #e8b4d5;
+ border-radius:25px;
+ text-align:center;
+ font-size:20px;
+ letter-spacing:5px;
+ outline:none;
+}
 .hidden{display:none!important}
 .butterfly{
  position:fixed;z-index:3;pointer-events:none;
@@ -74,7 +84,9 @@ button:hover{transform:scale(1.04)}
  background:#fff0f8;padding:17px 4px;
  border-radius:16px;border:1px solid #f1c3df;
 }
-.time strong{display:block;font: bold 30px Arial;color:#d34c9b}
+.time strong{
+ display:block;font:bold 30px Arial;color:#d34c9b
+}
 .time span{font:11px Arial;text-transform:uppercase}
 .letter{
  background:#fff8fc;padding:22px;border-radius:18px;
@@ -93,6 +105,7 @@ button:hover{transform:scale(1.04)}
  border-radius:15px;padding:12px;
 }
 .small{font:12px Arial;line-height:1.6;color:#986c91}
+.error{color:#c62868;font-size:14px}
 @media(max-width:420px){
  .countdown{gap:5px}
  .time{padding:13px 2px}
@@ -107,6 +120,55 @@ button:hover{transform:scale(1.04)}
 <div class="butterfly b1">🦋</div>
 <div class="butterfly b2">🦋</div>
 <div class="butterfly b3">🦋</div>
+
+<!-- PASSWORD SCREEN -->
+<section id="login">
+ <div class="card">
+  <p>✧ A PRIVATE LITTLE WORLD ✧</p>
+  <h1>Elizabeth's Pink Paradise 💗</h1>
+  <p class="script">A special surprise is waiting...</p>
+  <p>Enter your secret passcode to enter.</p>
+
+  <input
+   type="password"
+   id="passcode"
+   placeholder="Enter passcode"
+   inputmode="numeric"
+   maxlength="6"
+   autocomplete="off"
+  >
+
+  <br>
+  <button onclick="enterSite()">Unlock My Surprise 💌</button>
+
+  <p id="loginError" class="error"></p>
+  <p class="small">A little world made with love 🦋</p>
+ </div>
+</section>
+
+<!-- COUNTDOWN ONLY FOR ELIZABETH BEFORE RELEASE -->
+<section id="countdown" class="hidden">
+ <div class="card">
+  <p>✧ SOMETHING BEAUTIFUL IS WAITING ✧</p>
+  <h2>Counting Down to Your Special Day</h2>
+  <p class="script">The world is getting ready to celebrate you, Lizzy! 🦋</p>
+
+  <div class="countdown">
+   <div class="time"><strong id="days">0</strong><span>Days</span></div>
+   <div class="time"><strong id="hours">0</strong><span>Hours</span></div>
+   <div class="time"><strong id="minutes">0</strong><span>Minutes</span></div>
+   <div class="time"><strong id="seconds">0</strong><span>Seconds</span></div>
+  </div>
+
+  <p id="countMessage">
+   Your beautiful surprise will unlock on December 9! 💕
+  </p>
+  <p class="script">Until then, keep smiling, my beautiful Lizzy. ❤️</p>
+ </div>
+</section>
+
+<!-- MAIN WEBSITE -->
+<div id="mainSite" class="hidden">
 
 <section id="welcome">
  <div class="card">
@@ -131,41 +193,17 @@ button:hover{transform:scale(1.04)}
  </div>
 </section>
 
-<section id="countdown" class="hidden">
- <div class="card">
-  <p>EVERY SECOND IS SPECIAL</p>
-  <h2>Counting Down to Your Birthday</h2>
-  <p class="script">The world is getting ready to celebrate you, Lizzy! 🦋</p>
-
-  <div class="countdown">
-   <div class="time"><strong id="days">0</strong><span>Days</span></div>
-   <div class="time"><strong id="hours">0</strong><span>Hours</span></div>
-   <div class="time"><strong id="minutes">0</strong><span>Minutes</span></div>
-   <div class="time"><strong id="seconds">0</strong><span>Seconds</span></div>
-  </div>
-
-  <p id="countMessage">Your beautiful day is getting closer! 💕</p>
-  <button onclick="show('letter')">Continue 💌</button>
- </div>
-</section>
-
 <section id="letter" class="hidden">
  <div class="card">
   <p>A MESSAGE FROM MY HEART</p>
   <h2>My Dearest Elizabeth</h2>
   <div class="letter">
    <p>My love,</p>
-
    <p>I may not always find the perfect words to explain how much you mean to me, but I hope you always feel how special you are to me. Your smile makes ordinary moments beautiful, and your presence brings warmth to my life.</p>
-
    <p>I am grateful for every conversation, every laugh, every little memory, and every moment we share. I hope you never forget how precious you are and how much happiness you deserve.</p>
-
    <p>On your birthday, I wish you endless happiness, good health, peace of mind, success, and the courage to follow every dream in your heart. May life surprise you with beautiful opportunities, wonderful memories, and countless reasons to smile.</p>
-
    <p>Whatever challenges come your way, I hope you always find the strength to overcome them. Keep shining, keep smiling, and never stop being the wonderful person you are.</p>
-
    <p>Thank you for being you. You are precious to me, today and always.</p>
-
    <p class="script">With all my love, always. ❤️</p>
   </div>
   <button onclick="show('wishes')">Your Birthday Wishes ✨</button>
@@ -209,7 +247,10 @@ button:hover{transform:scale(1.04)}
    </div>
   </div>
 
-  <p class="small">Photo previews are local to the browser. To share photos with other visitors, add publicly hosted image links to the HTML.</p>
+  <p class="small">
+   Photo previews are local to the browser. To share photos with other visitors,
+   add publicly hosted image links to the HTML.
+  </p>
   <button onclick="show('final')">One Last Surprise 💝</button>
  </div>
 </section>
@@ -225,56 +266,162 @@ button:hover{transform:scale(1.04)}
  </div>
 </section>
 
+</div>
+
 <script>
+// YOUR OWNER PASSWORD
+const OWNER_PASSWORD = "130793";
+
+// ELIZABETH'S PASSWORD
+const LIZZY_PASSWORD = "123456";
+
+// Birthday unlock time: December 9, 2026, midnight in India
+const RELEASE_AT = new Date("2026-12-09T00:00:00+05:30");
+
+let accessRole = null;
+
+function hideAll(){
+ document.querySelectorAll("section").forEach(section=>{
+  section.classList.add("hidden");
+ });
+ document.getElementById("mainSite").classList.add("hidden");
+}
+
 function show(id){
- document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
- document.getElementById(id).classList.remove('hidden');
- window.scrollTo({top:0,behavior:'smooth'});
+ document.querySelectorAll("#mainSite section").forEach(section=>{
+  section.classList.add("hidden");
+ });
+ document.getElementById("mainSite").classList.remove("hidden");
+ document.getElementById(id).classList.remove("hidden");
+ window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function openFullWebsite(){
+ hideAll();
+ document.getElementById("mainSite").classList.remove("hidden");
+ show("welcome");
+}
+
+function enterSite(){
+ const entered = document.getElementById("passcode").value;
+ const error = document.getElementById("loginError");
+
+ if(entered === OWNER_PASSWORD){
+  accessRole = "owner";
+  localStorage.setItem("lizzyAccessRole","owner");
+  openFullWebsite();
+  return;
+ }
+
+ if(entered === LIZZY_PASSWORD){
+  accessRole = "lizzy";
+  localStorage.setItem("lizzyAccessRole","lizzy");
+
+  if(new Date() >= RELEASE_AT){
+   openFullWebsite();
+  }else{
+   hideAll();
+   document.getElementById("countdown").classList.remove("hidden");
+   updateCountdown();
+  }
+  return;
+ }
+
+ error.textContent = "Incorrect passcode. Please try again. 💗";
+ document.getElementById("passcode").value = "";
+}
+
+function checkSavedAccess(){
+ const savedRole = localStorage.getItem("lizzyAccessRole");
+
+ if(savedRole === "owner"){
+  accessRole = "owner";
+  openFullWebsite();
+ }else if(savedRole === "lizzy"){
+  accessRole = "lizzy";
+
+  if(new Date() >= RELEASE_AT){
+   openFullWebsite();
+  }else{
+   hideAll();
+   document.getElementById("countdown").classList.remove("hidden");
+   updateCountdown();
+  }
+ }else{
+  hideAll();
+  document.getElementById("login").classList.remove("hidden");
+ }
 }
 
 function updateCountdown(){
- const now=new Date();
- let target=new Date(now.getFullYear(),11,9,0,0,0);
- if(now>=target) target=new Date(now.getFullYear()+1,11,9,0,0,0);
+ const now = new Date();
 
- const diff=target-now;
- const day=86400000, hour=3600000, minute=60000;
+ // Elizabeth's countdown is for the first unlock date.
+ const target = RELEASE_AT;
+ const diff = target - now;
 
- document.getElementById('days').textContent=Math.floor(diff/day);
- document.getElementById('hours').textContent=Math.floor(diff%day/hour);
- document.getElementById('minutes').textContent=Math.floor(diff%hour/minute);
- document.getElementById('seconds').textContent=Math.floor(diff%minute/1000);
+ if(diff <= 0){
+  if(accessRole === "lizzy"){
+   openFullWebsite();
+  }
+  return;
+ }
 
- document.getElementById('countMessage').textContent=
- 'December 9 is on its way! Get ready for your special day, Lizzy. 💕';
+ const day = 86400000;
+ const hour = 3600000;
+ const minute = 60000;
+
+ document.getElementById("days").textContent =
+  Math.floor(diff/day);
+
+ document.getElementById("hours").textContent =
+  Math.floor((diff%day)/hour);
+
+ document.getElementById("minutes").textContent =
+  Math.floor((diff%hour)/minute);
+
+ document.getElementById("seconds").textContent =
+  Math.floor((diff%minute)/1000);
 }
-updateCountdown();
-setInterval(updateCountdown,1000);
 
 function preview(input){
- const file=input.files[0];
+ const file = input.files[0];
  if(!file)return;
- const reader=new FileReader();
- reader.onload=function(e){
-  const img=document.createElement('img');
-  img.src=e.target.result;
-  img.alt='Selected memory';
-  input.parentElement.innerHTML='';
+
+ const reader = new FileReader();
+
+ reader.onload = function(e){
+  const img = document.createElement("img");
+  img.src = e.target.result;
+  img.alt = "Selected memory";
+  input.parentElement.innerHTML = "";
   input.parentElement.appendChild(img);
  };
+
  reader.readAsDataURL(file);
 }
 
 function createSparkle(){
- const sparkle=document.createElement('span');
- sparkle.className='sparkle';
- sparkle.textContent=['✨','💕','💗','🌸'][Math.floor(Math.random()*4)];
- sparkle.style.left=Math.random()*100+'vw';
- sparkle.style.fontSize=(14+Math.random()*16)+'px';
- sparkle.style.animationDuration=(6+Math.random()*6)+'s';
+ const sparkle = document.createElement("span");
+ sparkle.className = "sparkle";
+ sparkle.textContent = ["✨","💕","💗","🌸"][
+  Math.floor(Math.random()*4)
+ ];
+ sparkle.style.left = Math.random()*100 + "vw";
+ sparkle.style.fontSize = (14+Math.random()*16) + "px";
+ sparkle.style.animationDuration = (6+Math.random()*6) + "s";
+
  document.body.appendChild(sparkle);
  setTimeout(()=>sparkle.remove(),12000);
 }
+
+document.getElementById("passcode").addEventListener("keydown",function(e){
+ if(e.key === "Enter") enterSite();
+});
+
+checkSavedAccess();
+updateCountdown();
+setInterval(updateCountdown,1000);
 setInterval(createSparkle,900);
 </script>
 
