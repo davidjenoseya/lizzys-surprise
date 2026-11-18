@@ -336,3 +336,91 @@ for(let i=0;i<12;i++){
 </body>
 </html>
 
+<!-- LIZZY'S LIVE BIRTHDAY COUNTDOWN -->
+<section id="birthday-countdown">
+  <h2>🎂 Counting Down to Your Special Day 💗</h2>
+  <p class="countdown-message">
+    Every second brings us closer to celebrating you, my beautiful Lizzy! 🦋
+  </p>
+
+  <div class="countdown-boxes">
+    <div><span id="days">0</span><small>Days</small></div>
+    <div><span id="hours">0</span><small>Hours</small></div>
+    <div><span id="minutes">0</span><small>Minutes</small></div>
+    <div><span id="seconds">0</span><small>Seconds</small></div>
+  </div>
+
+  <p id="birthday-message">
+    You deserve all the happiness in the world! 💕
+  </p>
+</section>
+
+<style>
+#birthday-countdown {
+  margin: 35px 12px;
+  padding: 30px 15px;
+  text-align: center;
+  border-radius: 25px;
+  background: linear-gradient(135deg, #ffb6d9, #e8c5ff);
+  color: #7c2455;
+  box-shadow: 0 8px 25px #d98ab855;
+}
+#birthday-countdown h2 {
+  font-size: 25px;
+}
+.countdown-message {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.countdown-boxes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+  margin: 25px 0;
+}
+.countdown-boxes div {
+  background: #ffffffdd;
+  padding: 15px 4px;
+  border-radius: 15px;
+}
+.countdown-boxes span {
+  display: block;
+  font-size: 27px;
+  font-weight: bold;
+}
+.countdown-boxes small {
+  font-size: 12px;
+}
+#birthday-message {
+  font-weight: bold;
+}
+</style>
+
+<script>
+function updateBirthdayCountdown() {
+  const now = new Date();
+
+  let year = now.getFullYear();
+  let birthday = new Date(year, 11, 9, 0, 0, 0);
+
+  if (now >= birthday) {
+    birthday = new Date(year + 1, 11, 9, 0, 0, 0);
+  }
+
+  const difference = birthday - now;
+
+  const days = Math.floor(difference / 86400000);
+  const hours = Math.floor((difference % 86400000) / 3600000);
+  const minutes = Math.floor((difference % 3600000) / 60000);
+  const seconds = Math.floor((difference % 60000) / 1000);
+
+  document.getElementById("days").textContent = days;
+  document.getElementById("hours").textContent = hours;
+  document.getElementById("minutes").textContent = minutes;
+  document.getElementById("seconds").textContent = seconds;
+}
+
+updateBirthdayCountdown();
+setInterval(updateBirthdayCountdown, 1000);
+</script>
+
