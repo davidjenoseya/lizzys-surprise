@@ -4,7 +4,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#ffb6d5">
 <title>Elizabeth's Pink Paradise 💗</title>
 
 <style>
@@ -12,415 +11,272 @@
 body{
  margin:0;
  font-family:Georgia,serif;
- color:#87365f;
- background:linear-gradient(140deg,#fff0f7,#f7c9e1,#e9d4ff);
- min-height:100vh;
+ color:#71345f;
+ background:linear-gradient(135deg,#ffe4f2,#e8d5ff,#fff0f8);
+ text-align:center;
  overflow-x:hidden;
 }
-button{font-family:inherit;cursor:pointer}
-.app{
- max-width:480px;
+section{
  min-height:100vh;
- margin:auto;
- padding:20px 16px 35px;
- text-align:center;
- position:relative;
- overflow:hidden;
-}
-.topline{
- letter-spacing:4px;
- font:11px Arial,sans-serif;
- color:#b65b88;
- margin:12px 0 24px;
-}
-.brand{
- font-size:19px;
- letter-spacing:2px;
- color:#a64276;
-}
-.screen{
- display:none;
- min-height:75vh;
- flex-direction:column;
+ display:flex;
  align-items:center;
  justify-content:center;
- animation:appear .8s ease;
+ padding:30px 16px;
 }
-.screen.active{display:flex}
-@keyframes appear{
- from{opacity:0;transform:translateY(22px)}
- to{opacity:1;transform:translateY(0)}
-}
-h1{
- font-size:clamp(32px,9vw,46px);
- line-height:1.15;
- color:#b43f7e;
- margin:18px 0;
- text-shadow:0 3px 15px #fff;
-}
-h2{color:#b34b80}
-p{font-size:17px;line-height:1.8}
-.small{font:11px Arial,sans-serif;letter-spacing:3px}
-.hero-art{
- width:230px;height:230px;
- border-radius:50%;
- display:grid;place-items:center;
- background:radial-gradient(circle,#fff 5%,#ffe2f0 48%,#eeb5d2 75%,#d98ab9);
- box-shadow:0 0 35px #d77cab88, inset 0 0 20px white;
- position:relative;
- animation:float 4s ease-in-out infinite;
-}
-.hero-art span{font-size:105px;filter:drop-shadow(0 8px 8px #a54b8055)}
-@keyframes float{
- 50%{transform:translateY(-13px) rotate(3deg)}
-}
-.butterfly{
- position:absolute;
- font-size:38px;
- animation:fly 5s ease-in-out infinite;
-}
-.b1{top:8%;left:5%}
-.b2{right:5%;top:20%;animation-delay:1s}
-.b3{bottom:12%;left:12%;animation-delay:2s}
-@keyframes fly{
- 0%,100%{transform:translate(0,0) rotate(-10deg)}
- 50%{transform:translate(15px,-22px) rotate(15deg)}
-}
-.btn{
- border:0;
- padding:15px 26px;
- border-radius:40px;
- margin:10px;
- color:white;
- font-size:16px;
- background:linear-gradient(110deg,#f18bbd,#bb5a98);
- box-shadow:0 7px 18px #bc639455;
-}
-.btn:active{transform:scale(.96)}
-.btn.light{
- background:#fff;
- color:#b34b80;
- border:1px solid #f1bdd8;
-}
-.glass{
+.card{
+ max-width:760px;
  width:100%;
- padding:25px 20px;
- border:1px solid #fff;
- border-radius:25px;
- background:#ffffffa8;
- box-shadow:0 12px 35px #a64b7830;
- backdrop-filter:blur(8px);
-}
-.ribbon{
- display:inline-block;
- padding:8px 18px;
- border-radius:30px;
- background:#ffe0ee;
- color:#a64276;
- letter-spacing:2px;
- font:11px Arial,sans-serif;
-}
-.letter{
- font-size:17px;
- line-height:2;
- text-align:center;
-}
-.doll{
- font-size:90px;
- filter:drop-shadow(0 9px 8px #a94d7855);
- animation:float 3s infinite;
-}
-.gallery{
- display:grid;
- grid-template-columns:1fr 1fr;
- gap:12px;
- width:100%;
- margin:18px 0;
-}
-.photo{
- min-height:145px;
+ padding:35px 22px;
+ border-radius:28px;
+ background:#ffffffdf;
  border:2px solid white;
- border-radius:18px;
- background:linear-gradient(140deg,#ffe0ed,#ead5ff);
- display:grid;
- place-items:center;
- overflow:hidden;
- box-shadow:0 5px 16px #9b477a22;
+ box-shadow:0 12px 45px #b66caa55;
 }
-.photo img{width:100%;height:150px;object-fit:cover}
-.photo span{font-size:35px}
-input{display:none}
-.upload{
- display:inline-block;
- background:white;
- border:1px dashed #d879a8;
- border-radius:25px;
- padding:13px 20px;
- color:#a64276;
- cursor:pointer;
+h1{font-size:clamp(36px,8vw,65px);color:#d84d9e}
+h2{font-size:clamp(27px,6vw,42px);color:#bd4c98}
+p{font-size:17px;line-height:1.8}
+.script{font-style:italic;color:#a14c8c;font-size:22px}
+button{
+ border:0;border-radius:30px;padding:14px 25px;
+ background:linear-gradient(120deg,#ec75b9,#a77be8);
+ color:white;font-size:16px;cursor:pointer;
+ margin:10px;box-shadow:0 5px 15px #c77dbb66;
 }
-.timeline{
- text-align:left;
- border-left:2px solid #e99ac0;
- padding-left:18px;
- margin:15px 0;
+button:hover{transform:scale(1.04)}
+.hidden{display:none!important}
+.butterfly{
+ position:fixed;z-index:3;pointer-events:none;
+ font-size:30px;animation:fly 9s ease-in-out infinite;
 }
-.memory{
- background:#fff7fb;
- padding:13px;
- border-radius:14px;
- margin:12px 0;
-}
-.footer{
- font:11px Arial,sans-serif;
- letter-spacing:2px;
- margin:30px 0 10px;
- color:#a85c83;
-}
-.heart{
- position:fixed;
- bottom:-30px;
- pointer-events:none;
- animation:rise 7s linear forwards;
- z-index:5;
-}
-@keyframes rise{
- to{transform:translateY(-110vh) rotate(360deg);opacity:0}
+.b1{top:12%;left:8%}
+.b2{top:35%;right:8%;animation-delay:2s}
+.b3{bottom:12%;left:15%;animation-delay:4s}
+@keyframes fly{
+ 0%,100%{transform:translateY(0) rotate(-12deg)}
+ 50%{transform:translateY(-35px) rotate(15deg)}
 }
 .sparkle{
- position:fixed;
- pointer-events:none;
- color:white;
- animation:twinkle 2s infinite alternate;
+ position:fixed;pointer-events:none;
+ animation:rise 9s linear infinite;
 }
-@keyframes twinkle{to{opacity:.2;transform:scale(.5)}}
+@keyframes rise{
+ from{transform:translateY(100vh);opacity:0}
+ 20%{opacity:1}
+ to{transform:translateY(-100vh);opacity:0}
+}
+.cake{font-size:85px;animation:bounce 2s infinite}
+@keyframes bounce{50%{transform:translateY(-12px)}}
+.countdown{
+ display:grid;grid-template-columns:repeat(4,1fr);
+ gap:9px;margin:25px 0;
+}
+.time{
+ background:#fff0f8;padding:17px 4px;
+ border-radius:16px;border:1px solid #f1c3df;
+}
+.time strong{display:block;font: bold 30px Arial;color:#d34c9b}
+.time span{font:11px Arial;text-transform:uppercase}
+.letter{
+ background:#fff8fc;padding:22px;border-radius:18px;
+ text-align:left;line-height:1.9;border-left:4px solid #e38abd;
+}
+.gallery{
+ display:grid;grid-template-columns:repeat(2,1fr);
+ gap:12px;margin:20px 0;
+}
+.gallery img{
+ width:100%;height:180px;object-fit:cover;
+ border-radius:15px;
+}
+.photo-box{
+ background:#fff0f8;border:1px dashed #d77bb5;
+ border-radius:15px;padding:12px;
+}
+.small{font:12px Arial;line-height:1.6;color:#986c91}
+@media(max-width:420px){
+ .countdown{gap:5px}
+ .time{padding:13px 2px}
+ .time strong{font-size:23px}
+ .time span{font-size:9px}
+}
 </style>
 </head>
 
 <body>
-<main class="app">
 
-<div class="topline">✧ A LITTLE WORLD MADE FOR YOU ✧</div>
-<div class="brand">ELIZABETH'S PINK PARADISE ♡</div>
+<div class="butterfly b1">🦋</div>
+<div class="butterfly b2">🦋</div>
+<div class="butterfly b3">🦋</div>
 
-<span class="butterfly b1">🦋</span>
-<span class="butterfly b2">🦋</span>
-<span class="butterfly b3">🦋</span>
-
-<!-- WELCOME -->
-<section class="screen active" id="welcome">
- <div class="ribbon">A SPECIAL SURPRISE</div>
- <div class="hero-art">
-  <span>🦋</span>
+<section id="welcome">
+ <div class="card">
+  <p>✧ A LITTLE WORLD MADE JUST FOR YOU ✧</p>
+  <h1>Elizabeth 💗</h1>
+  <p class="script">My beautiful Lizzy...</p>
+  <p>Some people make life more beautiful just by being in it. This little surprise is made especially for you, with love.</p>
+  <button onclick="show('birthday')">Open Your Surprise 💌</button>
+  <p>🦋 ✨ 💕 ✨ 🦋</p>
  </div>
- <h1>Welcome to Your<br>Pink Paradise</h1>
- <p>A magical little world created just for you, Elizabeth. 💗</p>
- <button class="btn" onclick="show('birthday')">Open Your Surprise ✨</button>
 </section>
 
-<!-- BIRTHDAY -->
-<section class="screen" id="birthday">
- <div class="doll">👑</div>
- <div class="ribbon">TODAY IS YOUR DAY</div>
- <h1>Happy Birthday,<br>Elizabeth!</h1>
- <p>To the girl who makes the world more beautiful just by being in it.</p>
- <button class="btn" onclick="show('letter')">Read Your Letter 💌</button>
-</section>
-
-<!-- LETTER -->
-<section class="screen" id="letter">
- <div class="doll">💌</div>
- <h1>A Little Love Note</h1>
- <div class="glass letter">
-  My dearest Elizabeth,<br><br>
-  You make my ordinary days special. Your smile is my favourite thing, and I'm lucky to have you in my life.<br><br>
-  Every little moment with you is a memory I want to keep forever.<br><br>
-  Hey, stop being too cute, the app might freeze! 😂<br><br>
-  <strong>With lots of love, always. 💗</strong>
+<section id="birthday" class="hidden">
+ <div class="card">
+  <p>THE MOST SPECIAL DAY</p>
+  <div class="cake">🎂</div>
+  <h1>Happy Birthday,<br>My Beautiful Lizzy!</h1>
+  <p class="script">December 9 — a day as special as you.</p>
+  <p>You are not just a beautiful part of my life; you are one of the reasons my life feels beautiful.</p>
+  <button onclick="show('countdown')">Your Live Countdown ⏳</button>
+  <button onclick="show('letter')">My Love Letter 💗</button>
  </div>
- <button class="btn" onclick="show('memories')">Our Beautiful Story 🌷</button>
 </section>
 
-<!-- MEMORIES -->
-<section class="screen" id="memories">
- <div class="doll">🎀</div>
- <h1>Our Beautiful Story</h1>
- <p>Every memory has a little piece of my heart.</p>
- <div class="glass">
-  <div class="timeline">
-   <div class="memory">🌸 <strong>Our Beginning</strong><br>Where our special story began.</div>
-   <div class="memory">💕 <strong>Beautiful Moments</strong><br>All the smiles and memories we share.</div>
-   <div class="memory">🦋 <strong>More Adventures</strong><br>Here's to many more moments together.</div>
+<section id="countdown" class="hidden">
+ <div class="card">
+  <p>EVERY SECOND IS SPECIAL</p>
+  <h2>Counting Down to Your Birthday</h2>
+  <p class="script">The world is getting ready to celebrate you, Lizzy! 🦋</p>
+
+  <div class="countdown">
+   <div class="time"><strong id="days">0</strong><span>Days</span></div>
+   <div class="time"><strong id="hours">0</strong><span>Hours</span></div>
+   <div class="time"><strong id="minutes">0</strong><span>Minutes</span></div>
+   <div class="time"><strong id="seconds">0</strong><span>Seconds</span></div>
   </div>
+
+  <p id="countMessage">Your beautiful day is getting closer! 💕</p>
+  <button onclick="show('letter')">Continue 💌</button>
  </div>
- <button class="btn" onclick="show('gallery')">See Our Photos 📸</button>
 </section>
 
-<!-- GALLERY -->
-<section class="screen" id="gallery">
- <div class="doll">📸</div>
- <h1>Our Memories</h1>
- <p>Add your favourite pictures here, beautiful.</p>
- <label class="upload" for="photos">＋ Add Your Photos</label>
- <input id="photos" type="file" accept="image/*" multiple>
- <div class="gallery" id="galleryGrid">
-  <div class="photo"><span>💗</span></div>
-  <div class="photo"><span>🌷</span></div>
-  <div class="photo"><span>🦋</span></div>
-  <div class="photo"><span>🎀</span></div>
+<section id="letter" class="hidden">
+ <div class="card">
+  <p>A MESSAGE FROM MY HEART</p>
+  <h2>My Dearest Elizabeth</h2>
+  <div class="letter">
+   <p>My love,</p>
+
+   <p>I may not always find the perfect words to explain how much you mean to me, but I hope you always feel how special you are to me. Your smile makes ordinary moments beautiful, and your presence brings warmth to my life.</p>
+
+   <p>I am grateful for every conversation, every laugh, every little memory, and every moment we share. I hope you never forget how precious you are and how much happiness you deserve.</p>
+
+   <p>On your birthday, I wish you endless happiness, good health, peace of mind, success, and the courage to follow every dream in your heart. May life surprise you with beautiful opportunities, wonderful memories, and countless reasons to smile.</p>
+
+   <p>Whatever challenges come your way, I hope you always find the strength to overcome them. Keep shining, keep smiling, and never stop being the wonderful person you are.</p>
+
+   <p>Thank you for being you. You are precious to me, today and always.</p>
+
+   <p class="script">With all my love, always. ❤️</p>
+  </div>
+  <button onclick="show('wishes')">Your Birthday Wishes ✨</button>
  </div>
- <button class="btn" onclick="show('final')">One Last Surprise 💖</button>
 </section>
 
-<!-- FINAL -->
-<section class="screen" id="final">
- <div class="hero-art"><span>👑</span></div>
- <h1>Forever My<br>Favourite Person</h1>
- <div class="glass">
-  <p>Happy Birthday once again, Elizabeth! 💗</p>
-  <p>May your life always be filled with happiness, love, magic and beautiful dreams.</p>
-  <h2>Keep Smiling, Beautiful! 🦋</h2>
+<section id="wishes" class="hidden">
+ <div class="card">
+  <p>MY WISHES FOR YOU</p>
+  <h2>May Your Life Be Magical 🌷</h2>
+  <p>May your heart always be peaceful, your smile always be bright, and your dreams turn into beautiful realities.</p>
+  <p>May every new chapter bring success, confidence, happiness, and people who genuinely care about you.</p>
+  <p>May God bless you with good health, strength, protection, and a future filled with beautiful moments.</p>
+  <p class="script">You deserve all the love and happiness in this world. 💗</p>
+  <button onclick="show('memories')">Our Memory Corner 📸</button>
  </div>
- <button class="btn light" onclick="show('welcome')">Replay Our Story ↻</button>
 </section>
 
-<div class="footer">MADE WITH LOVE FOR ELIZABETH ♡</div>
-</main>
+<section id="memories" class="hidden">
+ <div class="card">
+  <p>OUR BEAUTIFUL STORY</p>
+  <h2>Little Moments, Big Memories</h2>
+  <p>Every smile, every laugh, and every little moment can become a beautiful memory.</p>
+
+  <div class="gallery">
+   <div class="photo-box">
+    <input type="file" accept="image/*" onchange="preview(this)">
+    <p class="small">Choose a photo</p>
+   </div>
+   <div class="photo-box">
+    <input type="file" accept="image/*" onchange="preview(this)">
+    <p class="small">Choose a photo</p>
+   </div>
+   <div class="photo-box">
+    <input type="file" accept="image/*" onchange="preview(this)">
+    <p class="small">Choose a photo</p>
+   </div>
+   <div class="photo-box">
+    <input type="file" accept="image/*" onchange="preview(this)">
+    <p class="small">Choose a photo</p>
+   </div>
+  </div>
+
+  <p class="small">Photo previews are local to the browser. To share photos with other visitors, add publicly hosted image links to the HTML.</p>
+  <button onclick="show('final')">One Last Surprise 💝</button>
+ </div>
+</section>
+
+<section id="final" class="hidden">
+ <div class="card">
+  <div style="font-size:65px">💗🦋✨🦋💗</div>
+  <h1>Keep Shining, Lizzy!</h1>
+  <p class="script">The world is more beautiful with you in it.</p>
+  <p>Happy Birthday, Elizabeth. May your life always be filled with love, laughter, blessings, and beautiful dreams.</p>
+  <h2>Forever Special ❤️</h2>
+  <button onclick="show('welcome')">Experience Again ↺</button>
+ </div>
+</section>
 
 <script>
 function show(id){
- document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));
- document.getElementById(id).classList.add('active');
+ document.querySelectorAll('section').forEach(s=>s.classList.add('hidden'));
+ document.getElementById(id).classList.remove('hidden');
  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-document.getElementById('photos').addEventListener('change',function(){
- const grid=document.getElementById('galleryGrid');
- for(const file of this.files){
-  if(!file.type.startsWith('image/'))continue;
-  const reader=new FileReader();
-  reader.onload=function(e){
-   const card=document.createElement('div');
-   card.className='photo';
-   const img=document.createElement('img');
-   img.src=e.target.result;
-   img.alt='Our memory';
-   card.appendChild(img);
-   grid.appendChild(card);
-  };
-  reader.readAsDataURL(file);
- }
-});
+function updateCountdown(){
+ const now=new Date();
+ let target=new Date(now.getFullYear(),11,9,0,0,0);
+ if(now>=target) target=new Date(now.getFullYear()+1,11,9,0,0,0);
 
-function floatingHeart(){
- const heart=document.createElement('div');
- heart.className='heart';
- heart.textContent=['💗','💕','✨','🦋','🎀'][Math.floor(Math.random()*5)];
- heart.style.left=Math.random()*100+'vw';
- heart.style.fontSize=(16+Math.random()*20)+'px';
- document.body.appendChild(heart);
- setTimeout(()=>heart.remove(),7000);
-}
-setInterval(floatingHeart,1100);
+ const diff=target-now;
+ const day=86400000, hour=3600000, minute=60000;
 
-for(let i=0;i<12;i++){
- const star=document.createElement('div');
- star.className='sparkle';
- star.textContent='✧';
- star.style.left=Math.random()*100+'vw';
- star.style.top=Math.random()*100+'vh';
- star.style.animationDelay=Math.random()*2+'s';
- document.body.appendChild(star);
+ document.getElementById('days').textContent=Math.floor(diff/day);
+ document.getElementById('hours').textContent=Math.floor(diff%day/hour);
+ document.getElementById('minutes').textContent=Math.floor(diff%hour/minute);
+ document.getElementById('seconds').textContent=Math.floor(diff%minute/1000);
+
+ document.getElementById('countMessage').textContent=
+ 'December 9 is on its way! Get ready for your special day, Lizzy. 💕';
 }
+updateCountdown();
+setInterval(updateCountdown,1000);
+
+function preview(input){
+ const file=input.files[0];
+ if(!file)return;
+ const reader=new FileReader();
+ reader.onload=function(e){
+  const img=document.createElement('img');
+  img.src=e.target.result;
+  img.alt='Selected memory';
+  input.parentElement.innerHTML='';
+  input.parentElement.appendChild(img);
+ };
+ reader.readAsDataURL(file);
+}
+
+function createSparkle(){
+ const sparkle=document.createElement('span');
+ sparkle.className='sparkle';
+ sparkle.textContent=['✨','💕','💗','🌸'][Math.floor(Math.random()*4)];
+ sparkle.style.left=Math.random()*100+'vw';
+ sparkle.style.fontSize=(14+Math.random()*16)+'px';
+ sparkle.style.animationDuration=(6+Math.random()*6)+'s';
+ document.body.appendChild(sparkle);
+ setTimeout(()=>sparkle.remove(),12000);
+}
+setInterval(createSparkle,900);
 </script>
+
 </body>
 </html>
-
-<!-- LIZZY'S LIVE BIRTHDAY COUNTDOWN -->
-<section id="birthday-countdown">
-  <h2>🎂 Counting Down to Your Special Day 💗</h2>
-  <p class="countdown-message">
-    Every second brings us closer to celebrating you, my beautiful Lizzy! 🦋
-  </p>
-
-  <div class="countdown-boxes">
-    <div><span id="days">0</span><small>Days</small></div>
-    <div><span id="hours">0</span><small>Hours</small></div>
-    <div><span id="minutes">0</span><small>Minutes</small></div>
-    <div><span id="seconds">0</span><small>Seconds</small></div>
-  </div>
-
-  <p id="birthday-message">
-    You deserve all the happiness in the world! 💕
-  </p>
-</section>
-
-<style>
-#birthday-countdown {
-  margin: 35px 12px;
-  padding: 30px 15px;
-  text-align: center;
-  border-radius: 25px;
-  background: linear-gradient(135deg, #ffb6d9, #e8c5ff);
-  color: #7c2455;
-  box-shadow: 0 8px 25px #d98ab855;
-}
-#birthday-countdown h2 {
-  font-size: 25px;
-}
-.countdown-message {
-  font-size: 15px;
-  line-height: 1.6;
-}
-.countdown-boxes {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  margin: 25px 0;
-}
-.countdown-boxes div {
-  background: #ffffffdd;
-  padding: 15px 4px;
-  border-radius: 15px;
-}
-.countdown-boxes span {
-  display: block;
-  font-size: 27px;
-  font-weight: bold;
-}
-.countdown-boxes small {
-  font-size: 12px;
-}
-#birthday-message {
-  font-weight: bold;
-}
-</style>
-
-<script>
-function updateBirthdayCountdown() {
-  const now = new Date();
-
-  let year = now.getFullYear();
-  let birthday = new Date(year, 11, 9, 0, 0, 0);
-
-  if (now >= birthday) {
-    birthday = new Date(year + 1, 11, 9, 0, 0, 0);
-  }
-
-  const difference = birthday - now;
-
-  const days = Math.floor(difference / 86400000);
-  const hours = Math.floor((difference % 86400000) / 3600000);
-  const minutes = Math.floor((difference % 3600000) / 60000);
-  const seconds = Math.floor((difference % 60000) / 1000);
-
-  document.getElementById("days").textContent = days;
-  document.getElementById("hours").textContent = hours;
-  document.getElementById("minutes").textContent = minutes;
-  document.getElementById("seconds").textContent = seconds;
-}
-
-updateBirthdayCountdown();
-setInterval(updateBirthdayCountdown, 1000);
-</script>
-
