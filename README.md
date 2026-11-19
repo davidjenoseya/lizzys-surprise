@@ -847,3 +847,33 @@ function show(id) {
 
   window.scrollTo({top: 0, behavior: "smooth"});
 }
+.admin-only {
+  display: none !important;
+}
+
+.admin-only.admin-visible {
+  display: inline-block !important;
+}
+<button class="admin-only"
+        id="manageMemoriesBtn"
+        onclick="show('memories'); makeGallery();">
+  Manage Our 7 Memories 📸
+</button>
+function updateAdminAccess() {
+  const button = document.getElementById("manageMemoriesBtn");
+
+  if (button) {
+    button.classList.toggle(
+      "admin-visible",
+      currentRole === "owner" && !!auth.currentUser
+    );
+  }
+}
+currentRole = "owner";
+loadText();
+updateAdminAccess();
+show("owner");
+currentRole = "";
+updateAdminAccess();
+currentRole = "";
+updateAdminAccess();
