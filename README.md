@@ -869,3 +869,13 @@ function updateAdminAccess() {
     );
   }
 }
+<script>
+    gallery.innerHTML = "";
+
+    galleryData.forEach((item, i) => {
+        const box = document.createElement("div");
+        box.className = "photo";
+
+        // Keep the remaining JavaScript code here
+    });
+</script>
