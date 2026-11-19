@@ -514,3 +514,336 @@ makeGallery();
 </script>
 </body>
 </html>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+const galleryDoc = db.collection("website")
+  .doc("beautifulMemories");
+
+const defaultCaptions = [
+  "Your smile is my favourite photograph. 💗",
+  "Every moment with you is special. 🦋",
+  "A beautiful memory I will always treasure.",
+  "You make ordinary days magical. ✨",
+  "My favourite person, my sweetest blessing.",
+  "A little picture, a lot of love. ❤️",
+  "May we create a thousand more memories."
+];
+
+let galleryData = Array.from(
+  {length: 7},
+  (_, i) => ({
+    url: "",
+    caption: defaultCaptions[i]
+  })
+);
+
+let selectedFiles = Array(7).fill(null);
+</script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+
+<script>
+const firebaseConfig = {
+  apiKey: "YOUR_API_KEY",
+  authDomain: "YOUR_PROJECT.firebaseapp.com",
+  projectId: "YOUR_PROJECT_ID",
+  storageBucket: "YOUR_STORAGE_BUCKET",
+  messagingSenderId: "YOUR_SENDER_ID",
+  appId: "YOUR_APP_ID"
+};
+
+firebase.initializeApp(firebaseConfig);
+
+const auth = firebase.auth();
+const db = firebase.firestore();
+const storage = firebase.storage();
+
+const galleryDoc = db.collection("website")
+  .doc("beautifulMemories");
+
+const defaultCaptions = [
+  "Your smile is my favourite photograph. 💗",
+  "Every moment with you is special. 🦋",
+  "A beautiful memory I will always treasure.",
+  "You make ordinary days magical. ✨",
+  "My favourite person, my sweetest blessing.",
+  "A little picture, a lot of love. ❤️",
+  "May we create a thousand more memories."
+];
+
+let galleryData = Array.from(
+  {length: 7},
+  (_, i) => ({
+    url: "",
+    caption: defaultCaptions[i]
+  })
+);
+
+let selectedFiles = Array(7).fill(null);
+</script>
+<input
+  id="ownerEmail"
+  type="email"
+  placeholder="Admin email (for owner login)">
+  
+<button onclick="show('memories'); makeGallery();">
+  Manage Our 7 Memories 📸
+</button>
+<section id="memories" class="hidden">
+  <div class="card">
+    <h1>Our Beautiful Memories 💞</h1>
+    <p class="script">Every picture tells a little story.</p>
+
+    <div id="adminGalleryControls" class="hidden">
+      <p>Choose or replace your seven favourite photos.</p>
+      <button onclick="saveCloudGallery()">
+        Publish All Memories 💗
+      </button>
+      <p id="galleryStatus" class="small"></p>
+    </div>
+
+    <div class="gallery" id="gallery"></div>
+
+    <button onclick="show('wishes')">Continue 💗</button>
+    <button onclick="show('birthday')">Home</button>
+  </div>
+</section>
+async function makeGallery() {
+  const gallery = document.getElementById("gallery");
+  const controls = document.getElementById("adminGalleryControls");
+
+  gallery.innerHTML = "<p>Loading memories... 💗</p>";
+
+  controls.classList.toggle("hidden", currentRole !== "owner");
+
+  try {
+    const snapshot = await galleryDoc.get();
+
+    if (snapshot.exists) {
+      const saved = snapshot.data().photos || [];
+
+      galleryData = Array.from({length: 7}, (_, i) => ({
+        url: saved[i]?.url || "",
+        caption: saved[i]?.caption || defaultCaptions[i]
+      }));
+    }
+  } catch (error) {
+    console.error(error);
+    gallery.innerHTML = "<p>Unable to load photos. Please try again.</p>";
+    return;
+  }
+
+  gallery.innerHTML = "";
+
+  galleryData.forEach((item, i) => {
+    const box = document.createElement("div");
+    box.className = "photo";
+
+    if (item.url) {
+      const img = document.createElement("img");
+      img.src = item.url;
+      img.alt = "Memory " + (i + 1);
+      box.appendChild(img);
+    } else {
+      const placeholder = document.createElement("div");
+      placeholder.textContent = "📸";
+      placeholder.style.fontSize = "35px";
+      box.appendChild(placeholder);
+    }
+
+    if (currentRole === "owner") {
+      const heading = document.createElement("p");
+      heading.textContent = "Memory " + (i + 1);
+      box.appendChild(heading);
+
+      const file = document.createElement("input");
+      file.type = "file";
+      file.accept = "image/jpeg,image/png,image/webp";
+
+      file.onchange = () => {
+        const selected = file.files[0];
+        if (!selected) return;
+
+        if (selected.size > 5 * 1024 * 1024) {
+          alert("Please select an image smaller than 5 MB.");
+          file.value = "";
+          return;
+        }
+
+        selectedFiles[i] = selected;
+
+        const previewURL = URL.createObjectURL(selected);
+        const oldImage = box.querySelector("img");
+
+        if (oldImage) {
+          oldImage.src = previewURL;
+        } else {
+          const img = document.createElement("img");
+          img.src = previewURL;
+          img.alt = "Memory " + (i + 1);
+          box.prepend(img);
+        }
+      };
+
+      box.appendChild(file);
+
+      const caption = document.createElement("input");
+      caption.value = item.caption;
+      caption.placeholder = "Edit photo caption";
+
+      caption.oninput = () => {
+        galleryData[i].caption = caption.value;
+      };
+
+      box.appendChild(caption);
+
+      const remove = document.createElement("button");
+      remove.textContent = "Remove photo";
+      remove.onclick = () => {
+        selectedFiles[i] = null;
+        galleryData[i].url = "";
+        makeGallery();
+      };
+
+      box.appendChild(remove);
+    } else {
+      const caption = document.createElement("p");
+      caption.textContent = item.caption;
+      box.appendChild(caption);
+    }
+
+    gallery.appendChild(box);
+  });
+}
+
+async function saveCloudGallery() {
+  if (currentRole !== "owner" || !auth.currentUser) {
+    alert("Please log in as the administrator.");
+    return;
+  }
+
+  const status = document.getElementById("galleryStatus");
+  const button = document.querySelector("#adminGalleryControls button");
+
+  button.disabled = true;
+  status.textContent = "Uploading your beautiful memories... 💗";
+
+  try {
+    const photos = [];
+
+    for (let i = 0; i < 7; i++) {
+      let url = galleryData[i].url;
+
+      if (selectedFiles[i]) {
+        const file = selectedFiles[i];
+
+        const imageRef = storage.ref(
+          "memories/photo-" + (i + 1)
+        );
+
+        const upload = await imageRef.put(file);
+        url = await upload.ref.getDownloadURL();
+      }
+
+      photos.push({
+        url: url,
+        caption: galleryData[i].caption
+      });
+    }
+
+    await galleryDoc.set({
+      photos: photos,
+      updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    galleryData = photos;
+    selectedFiles = Array(7).fill(null);
+
+    status.textContent =
+      "All seven memories published successfully! 💗";
+
+    await makeGallery();
+
+  } catch (error) {
+    console.error(error);
+    status.textContent =
+      "Upload failed. Please check Firebase settings and try again.";
+  } finally {
+    button.disabled = false;
+  }
+}
+async function login() {
+  const pass = document.getElementById("password").value;
+  const email = document.getElementById("ownerEmail").value.trim();
+
+  document.getElementById("loginError").textContent = "";
+
+  if (email) {
+    try {
+      await auth.signInWithEmailAndPassword(email, pass);
+
+      currentRole = "owner";
+      loadText();
+      show("owner");
+      return;
+
+    } catch (error) {
+      document.getElementById("loginError").textContent =
+        "Admin login failed. Check your email and password.";
+      return;
+    }
+  }
+
+  if (pass === LIZZY_PASSWORD) {
+    currentRole = "lizzy";
+    updateCountdown();
+
+    if (new Date() >= new Date(
+      BIRTHDAY_YEAR, BIRTHDAY_MONTH, BIRTHDAY_DAY
+    )) {
+      show("birthday");
+    } else {
+      show("advance");
+    }
+
+  } else {
+    document.getElementById("loginError").textContent =
+      "Incorrect password. Please try again.";
+  }
+
+  document.getElementById("password").value = "";
+}
+function show(id) {
+  document.querySelectorAll("section").forEach(section =>
+    section.classList.add("hidden")
+  );
+
+  document.getElementById(id).classList.remove("hidden");
+
+  if (id === "memories") {
+    makeGallery();
+  }
+
+  window.scrollTo({top: 0, behavior: "smooth"});
+}
