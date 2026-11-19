@@ -869,11 +869,3 @@ function updateAdminAccess() {
     );
   }
 }
-currentRole = "owner";
-loadText();
-updateAdminAccess();
-show("owner");
-currentRole = "";
-updateAdminAccess();
-currentRole = "";
-updateAdminAccess();
