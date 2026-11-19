@@ -514,3 +514,197 @@ makeGallery();
 </script>
 </body>
 </html>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beautiful Memories Admin</title>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background: #fff0f7;
+  padding: 20px;
+  color: #713b59;
+}
+
+.container {
+  max-width: 850px;
+  margin: auto;
+  background: white;
+  padding: 22px;
+  border-radius: 18px;
+  box-shadow: 0 5px 20px #e7b5d0;
+}
+
+h1 { text-align: center; color: #e66ba7; }
+
+.upload {
+  display: block;
+  margin: 20px auto;
+  padding: 14px;
+  background: #ffe0ef;
+  border-radius: 12px;
+  width: 90%;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.card {
+  background: #fff5fa;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.card input {
+  width: 95%;
+  margin-top: 8px;
+  padding: 7px;
+}
+
+button {
+  background: #e66ba7;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin: 5px;
+}
+
+button:disabled {
+  opacity: .5;
+}
+
+#status {
+  text-align: center;
+  margin: 15px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>💗 Beautiful Memories Admin</h1>
+<p>Select up to 7 beautiful memories.</p>
+
+<input class="upload"
+ type="file"
+ id="photos"
+ accept="image/*"
+ multiple>
+
+<div class="grid" id="preview"></div>
+
+<p id="status">0 / 7 images selected</p>
+
+<button onclick="savePhotos()">Save Memories</button>
+<button onclick="clearPhotos()">Clear All</button>
+
+</div>
+
+<script>
+let memories = [];
+
+document.getElementById("photos")
+.addEventListener("change", function(e) {
+
+  const files = Array.from(e.target.files);
+
+  if (files.length > 7) {
+    alert("Please select only 7 images.");
+    this.value = "";
+    return;
+  }
+
+  memories.forEach(item =>
+    URL.revokeObjectURL(item.url)
+  );
+
+  memories = files.map(file => ({
+    file,
+    url: URL.createObjectURL(file),
+    caption: ""
+  }));
+
+  render();
+});
+
+function render() {
+  const preview = document.getElementById("preview");
+  preview.innerHTML = "";
+
+  memories.forEach((item, index) => {
+    preview.innerHTML += `
+      <div class="card">
+        <img src="${item.url}">
+        <p>Memory ${index + 1}</p>
+        <input
+          placeholder="Write a caption..."
+          value="${item.caption}"
+          onchange="memories[${index}].caption=this.value">
+        <button onclick="removePhoto(${index})">
+          Delete
+        </button>
+      </div>
+    `;
+  });
+
+  document.getElementById("status").innerText =
+    memories.length + " / 7 images selected";
+}
+
+function removePhoto(index) {
+  URL.revokeObjectURL(memories[index].url);
+  memories.splice(index, 1);
+  render();
+}
+
+function clearPhotos() {
+  memories.forEach(item =>
+    URL.revokeObjectURL(item.url)
+  );
+  memories = [];
+  document.getElementById("photos").value = "";
+  render();
+}
+
+function savePhotos() {
+  if (memories.length !== 7) {
+    alert("Please select all 7 images first.");
+    return;
+  }
+
+  const data = memories.map(item => ({
+    name: item.file.name,
+    caption: item.caption,
+    image: item.url
+  }));
+
+  localStorage.setItem(
+    "beautifulMemories",
+    JSON.stringify(data)
+  );
+
+  alert("Memories saved in this browser!");
+}
+</script>
+
+</body>
+</html>
+
